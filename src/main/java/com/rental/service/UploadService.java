@@ -1,9 +1,11 @@
 package com.rental.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 
-@RequiredArgsConstructor
-@Service
-public class UploadService {
+import java.io.InputStream;
+
+public interface UploadService {
+
+    void uploadFile(InputStream inputStream, ObjectMetadata objectMetadata, String fileName);
+    String getFileUrl(String fileName);
 }

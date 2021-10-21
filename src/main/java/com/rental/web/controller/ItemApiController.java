@@ -13,22 +13,22 @@ public class ItemApiController {
 
     private final ItemService itemService;
 
-    @PostMapping("/item")
+    @PostMapping("/api/v1/item")
     public Long save(@RequestBody ItemSaveRequestDto requestDto) {
         return itemService.save(requestDto);
     }
 
-    @PutMapping("/item/{id}")
+    @PutMapping("/api/v1/item/{id}")
     public Long update(@PathVariable Long id, @RequestBody ItemUpdateRequestDto requestDto) {
         return itemService.update(id, requestDto);
     }
 
-    @GetMapping("/item/{id}")
+    @GetMapping("/api/v1/item/{id}")
     public ItemResponseDto findById (@PathVariable Long id) {
         return itemService.findById(id);
     }
 
-    @DeleteMapping("item/{id}")
+    @DeleteMapping("/api/v1/item/{id}")
     public Long delete(@PathVariable Long id) {
         itemService.delete(id);
         return id;
