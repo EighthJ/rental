@@ -51,13 +51,13 @@ public class ItemService {
         return id;
     }
 
-    //상품 id 조회
+    //상품 id로 조회
     @Transactional
     public ItemResponseDto findById(Long id) {
         Item entity = itemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
         return new ItemResponseDto(entity);
     }
-    //상품명 조회
+    //상품명으로 조회
     @Transactional
     public List<ItemResponseDto> findByItemName(String itemName) {
         List<Item> itemList = itemRepository.findByName(itemName);
@@ -69,6 +69,14 @@ public class ItemService {
             itemResponseDtoList.add(new ItemResponseDto(item));
         }
         return itemResponseDtoList;
+    }
+
+    //전체 상품 조회
+    @Transactional
+    public List<ItemResponseDto> findAll() {
+        return itemRepository.findAll().stream()
+                .map(ItemResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     //상품 삭제

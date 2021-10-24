@@ -29,19 +29,21 @@ public class ItemApiController {
     public Long update(@PathVariable Long id, @RequestBody ItemUpdateRequestDto requestDto) {
         return itemService.update(id, requestDto);
     }
-    //상품 id조회
+    //상품 id로 조회
     @GetMapping("/api/v1/item/{id}") //HTTP Method인 Get의 요청을 받을 수 있는 API를 만들어 줌(@RequestMapping 대신 사용)
     public ItemResponseDto findById(@PathVariable Long id) {
         return itemService.findById(id);
     }
-    //상품명 조회
+    //상품명으로 조회
     @GetMapping("/api/v1/item/name")
-    public List<ItemResponseDto> findByName(@RequestParam(value = "itemName") String itemName, Model model) {
-        List<ItemResponseDto> itemResponseDtoList = itemService.findByItemName(itemName);
-
-        model.addAttribute("itemList", itemResponseDtoList);
-
+    public List<ItemResponseDto> findByName(@PathVariable String itemName) {
         return itemService.findByItemName(itemName);
+    }
+
+    //상품 전체 조회
+    @GetMapping("/api/v1/item")
+    public List<ItemResponseDto> findAll() {
+        return itemService.findAll();
     }
 
     //상품 삭제
