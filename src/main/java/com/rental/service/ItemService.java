@@ -57,6 +57,27 @@ public class ItemService {
         Item entity = itemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
         return new ItemResponseDto(entity);
     }
+    //상품명으로 조회
+    @Transactional
+    public List<ItemResponseDto> findByItemName(String itemName) {
+        List<Item> itemList = itemRepository.findByName(itemName);
+        List<ItemResponseDto> itemResponseDtoList = new ArrayList<>();
+
+        if (itemList.isEmpty()) return itemResponseDtoList;
+
+        for (Item item : itemList) {
+            itemResponseDtoList.add(new ItemResponseDto(item));
+        }
+        return itemResponseDtoList;
+    }
+
+    //전체 상품 조회
+    @Transactional
+    public List<ItemResponseDto> findAll() {
+        return itemRepository.findAll().stream()
+                .map(ItemResponseDto::new)
+                .collect(Collectors.toList());
+    }
 
     //상품 삭제
     @Transactional

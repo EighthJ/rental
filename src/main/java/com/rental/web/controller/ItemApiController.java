@@ -32,6 +32,17 @@ public class ItemApiController {
     public ItemResponseDto findById(@PathVariable Long id) {
         return itemService.findById(id);
     }
+    //상품명으로 조회
+    @GetMapping("/api/v1/item/name")
+    public List<ItemResponseDto> findByName(@PathVariable String itemName) {
+        return itemService.findByItemName(itemName);
+    }
+
+    //상품 전체 조회
+    @GetMapping("/api/v1/item")
+    public List<ItemResponseDto> findAll() {
+        return itemService.findAll();
+    }
 
     //상품 삭제
     @DeleteMapping("/api/v1/item/{id}")
