@@ -1,13 +1,11 @@
 package com.rental.web.controller;
 
-import com.rental.entity.Item;
 import com.rental.service.ItemService;
 import com.rental.web.dto.ItemResponseDto;
 import com.rental.web.dto.ItemSaveRequestDto;
 import com.rental.web.dto.ItemUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
