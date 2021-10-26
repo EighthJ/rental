@@ -1,8 +1,8 @@
 package com.rental.domain.product;
 
 import com.rental.domain.BaseTimeEntity;
-import com.rental.domain.user.User;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.rental.domain.user.User;
 import lombok.*;
 
 import javax.persistence.*;

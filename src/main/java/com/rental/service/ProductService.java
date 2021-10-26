@@ -4,9 +4,11 @@ import com.rental.domain.product.Product;
 import com.rental.domain.user.User;
 import com.rental.dto.*;
 import com.rental.repository.ProductRepository;
-import com.rental.repository.UserRepository;
+import com.rental.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,10 +23,13 @@ public class ProductService {
     @Autowired
     private UserRepository userRepository;
 
-    public void createProduct(ProductSaveDto saveDto, Long id){
-        Product uploadProduct = getPro(saveDto,id);
-        Product saveProduct = productRepository.save(uploadProduct);
+    public void createProduct(ProductSaveDto saveDto, UserDetails currentUser){
 
+        User user = userRepository.findByEmail(currentUser.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
+
+        Product uploadProduct = getPro(saveDto,user.getId());
+        Product saveProduct = productRepository.save(uploadProduct);
     }
 
     private Product getPro(ProductSaveDto productSaveDto, Long id){

@@ -2,6 +2,7 @@ package com.rental.dto;
 
 import com.rental.domain.product.Product;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.rental.entity.User.dto.userDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,13 +20,13 @@ public class ProductDto {
     @JsonProperty("charge")
     private int charge;
     @JsonProperty("user")
-    private UserDto user;
+    private userDto.Info user;
 
     public ProductDto(Product product){
         this.title = product.getTitle();
         this.title = product.getTitle();
         this.content = product.getContent();
         this.price = product.getPrice();
-        this.user = new UserDto(product.getUser());
+        this.user = new userDto.Info(product.getUser());
     }
 }
