@@ -12,14 +12,18 @@ public class ProductUpdateRequestDto {
     private String content;
     private int price;
     private int charge;
+    private String fileName;
+    private String filePath;
     //private Long fileId;
 
     @Builder
-    public ProductUpdateRequestDto(String title, String content, int price, int charge){
+    public ProductUpdateRequestDto(String title, String content, int price, int charge, String fileName, String filePath){
         this.title = title;
         this.content = content;
         this.price = price;
         this.charge = charge;
+        this.fileName = fileName;
+        this.filePath = filePath;
         //this.fileId = fileId;
     }
 }

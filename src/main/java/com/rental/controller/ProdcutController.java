@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class ProdcutController {
 
     //수정필요
     @PostMapping("/product")
-    public void create(@RequestBody ProductSaveDto saveDto, @AuthenticationPrincipal UserDetails currentUser){
-        productService.createProduct(saveDto, currentUser);
+    public void create(@RequestBody ProductSaveDto saveDto, @AuthenticationPrincipal UserDetails currentUser, MultipartFile file) throws Exception{
+        productService.createProduct(saveDto, currentUser, file);
     }
 
     //완료
@@ -38,7 +39,7 @@ public class ProdcutController {
 
     //되긴되는 데 입력안한 게 다 0이 됨
     @PutMapping("/product/update/{product_id}")
-    public void update(@PathVariable Long product_id, @RequestBody ProductUpdateRequestDto requestDto){
+    public void update(@PathVariable Long product_id, @RequestBody ProductUpdateRequestDto requestDto, MultipartFile file){
         productService.update(product_id,requestDto);
     }
 

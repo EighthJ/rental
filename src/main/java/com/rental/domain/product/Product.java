@@ -33,30 +33,40 @@ public class Product extends BaseTimeEntity {
     @Column
     private String content;
 
+    @Column
+    private String fileName;
+
+    @Column
+    private String filePath;
+
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
 
     //@Builder
-    public Product(String title, String content, int price, int charge, User user){
+    public Product(String title, String content, int price, int charge, User user, String fileName, String filePath){
         this.title = title;
         this.content = content;
         this.price = price;
         this.charge = charge;
         this.user = user;
+        this.fileName = fileName;
+        this.filePath = filePath;
 
     }
 
-    public void update(String title, String content, int price, int charge){
+    public void update(String title, String content, int price, int charge, String fileName, String filePath){
         this.title = title;
         this.content = content;
         this.price = price;
         this.charge = charge;
+        this.fileName = fileName;
+        this.filePath = filePath;
         //this.fileId = fileId;
     }
 
-    public static Product from(String title, String content, int price, int charge, User user){
-        return new Product(title,content,price,charge,user);
+    public static Product from(String title, String content, int price, int charge, User user, String fileName, String filePath){
+        return new Product(title,content,price,charge,user,fileName,filePath);
     }
 }
