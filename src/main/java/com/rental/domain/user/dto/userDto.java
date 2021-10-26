@@ -46,12 +46,32 @@ public class userDto {
         private Long id;
         private String name;
         private String email;
+        private String nickname;
+        private String role;
+        private String address;
+        private String userIntro;
 
         public Info(User user) {
             this.id = user.getId();
             this.name = user.getName();
             this.email = user.getEmail();
+            this.nickname = user.getNickname();
+            this.role = user.getRole().getKey();
+            this.address = user.getAddress();
+            this.userIntro = user.getUserIntro();
         }
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Setter
+    public static class update {
+        private String name;
+        private String nickname;
+        private String address;
+        private String userIntro;
     }
 }
 

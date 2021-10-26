@@ -43,4 +43,11 @@ public class User extends BaseTimeEntity {
     public void changeRole() {
         this.role = (this.role == Role.BUYER) ? Role.SELLER : Role.BUYER;
     }
+
+    public void update(com.rental.entity.User.dto.userDto.update updateDto) {
+        this.name = updateDto.getName();
+        this.address = updateDto.getAddress();
+        this.nickname = updateDto.getNickname();
+        this.userIntro = updateDto.getUserIntro();
+    }
 }

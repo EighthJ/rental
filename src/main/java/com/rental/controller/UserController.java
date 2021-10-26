@@ -15,10 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -30,16 +27,33 @@ public class UserController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
+    /**
+     * 회원가입
+     */
     @PostMapping("/api/user/create")
-    public ResponseEntity<User> signup(@Valid @RequestBody userDto.create userDto) {
+    public ResponseEntity<userDto.Info> signup(@Valid @RequestBody userDto.create userDto) {
         return ResponseEntity.ok(userService.signup(userDto));
     }
 
-    @GetMapping("/api/user/anyone")
-    public User getMyUserInfo(@AuthenticationPrincipal UserDetails currentUser) {
+    /**
+     * 내 정보 조회
+     */
+    @GetMapping("/api/user/myInfo")
+    public userDto.Info getMyUserInfo(@AuthenticationPrincipal UserDetails currentUser) {
         return userService.getMyInfo(currentUser);
     }
 
+    /**
+     * 유저 정보 조회
+     */
+    @GetMapping("/api/user/{userId}")
+    public userDto.Info getUserInfo(@PathVariable Long userId) {
+        return userService.getUserInfo(userId);
+    }
+
+    /**
+     * 로그인
+     */
     @PostMapping("/api/login")
     public ResponseEntity<userDto.token> authorize(@Valid @RequestBody userDto.login loginDto) {
 
@@ -56,8 +70,19 @@ public class UserController {
         return new ResponseEntity<>(new userDto.token(jwt), httpHeaders, HttpStatus.OK);
     }
 
-    @GetMapping("api/user/test")
-    public void testAPI() {
+    /**
+     * 내 정보 수정
+     */
+    @PostMapping("api/user/update")
+    public userDto.Info update(@RequestBody userDto.update updateDto, @AuthenticationPrincipal UserDetails currentUser) {
+        return userService.updateMyInfo(updateDto, currentUser);
+    }
 
+    /**
+     * 권한 변경 (판매자 <-> 구매자)
+     */
+    @PostMapping("api/user/changeRole")
+    public userDto.Info changeMyRole(@AuthenticationPrincipal UserDetails currentUser) {
+        return userService.changeRole(currentUser);
     }
 }

@@ -24,7 +24,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public User signup(userDto.create userDto) {
+    public userDto.Info signup(userDto.create userDto) {
         if (userRepository.findByEmail(userDto.getEmail()).orElse(null) != null) {
             throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
         }
@@ -38,20 +38,36 @@ public class UserService {
                 .role(Role.BUYER)
                 .build();
 
-        return userRepository.save(user);
+        return new userDto.Info(userRepository.save(user));
     }
 
-    public Optional<User> getUserWithAuthorities(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    public Optional<User> getMyUserWithAuthorities() { // 현재 로그인 한 유저
-        return SecurityUtil.getCurrentUsername().flatMap(userRepository::findByEmail);
-    }
-
-    public User getMyInfo(UserDetails currentUser) {
-
-        return userRepository.findByEmail(currentUser.getUsername())
+    public userDto.Info getMyInfo(UserDetails currentUser) {
+        return userRepository.findByEmail(currentUser.getUsername()).map(user -> new userDto.Info(user))
                 .orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
+    }
+
+    public userDto.Info getUserInfo(Long userId) {
+        return userRepository.findById(userId).map(user -> new userDto.Info(user))
+                .orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
+    }
+
+    @Transactional
+    public userDto.Info updateMyInfo(userDto.update updateDto, UserDetails currentUser) {
+        User user = userRepository.findByEmail(currentUser.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
+
+        user.update(updateDto);
+
+        return new userDto.Info(user);
+    }
+
+    @Transactional
+    public userDto.Info changeRole(UserDetails currentUser) {
+        User user = userRepository.findByEmail(currentUser.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
+
+        user.changeRole();
+
+        return new userDto.Info(user);
     }
 }
