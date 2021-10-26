@@ -14,15 +14,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class ProdcutController {
+public class ProductController {
 
     @Autowired
     private ProductService productService;
 
     //수정필요
     @PostMapping("/product")
-    public void create(@RequestBody ProductSaveDto saveDto, @AuthenticationPrincipal UserDetails currentUser, MultipartFile file) throws Exception{
-        productService.createProduct(saveDto, currentUser, file);
+    public void create(@RequestBody ProductSaveDto saveDto, @AuthenticationPrincipal UserDetails currentUser){
+        productService.createProduct(saveDto, currentUser);
     }
 
     //완료

@@ -26,16 +26,10 @@ public class ProductService {
     @Autowired
     private UserRepository userRepository;
 
-    public void createProduct(ProductSaveDto saveDto, UserDetails currentUser, MultipartFile file) throws Exception{
+    public void createProduct(ProductSaveDto saveDto, UserDetails currentUser){
 
         User user = userRepository.findByEmail(currentUser.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
-
-        String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\files";
-        UUID uuid = UUID.randomUUID();
-        String fileName = uuid + "_" + file.getOriginalFilename();
-        File saveFile = new File(filePath, "name");
-        file.transferTo(saveFile);
 
         Product uploadProduct = getPro(saveDto,user.getId());
         Product saveProduct = productRepository.save(uploadProduct);
@@ -48,9 +42,7 @@ public class ProductService {
                 productSaveDto.getContent(),
                 productSaveDto.getPrice(),
                 productSaveDto.getCharge(),
-                user,
-                productSaveDto.getFileName(),
-                productSaveDto.getFilePath()
+                user
         );
     }
 
@@ -60,7 +52,7 @@ public class ProductService {
 
     public void update(Long id, ProductUpdateRequestDto requestDto){
         Product product = productRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당게시물이 없습니다. id" +id));
-        product.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getPrice(), requestDto.getCharge(), requestDto.getFileName(), requestDto.getFilePath());
+        product.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getPrice(), requestDto.getCharge());
         productRepository.save(product);
     }
 

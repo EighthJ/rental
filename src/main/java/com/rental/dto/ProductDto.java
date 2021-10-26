@@ -21,10 +21,6 @@ public class ProductDto {
     private int charge;
     @JsonProperty("user")
     private userDto.Info user;
-    @JsonProperty("fileName")
-    private String fileName;
-    @JsonProperty("filePath")
-    private String filePath;
 
     public ProductDto(Product product){
         this.title = product.getTitle();
@@ -32,7 +28,5 @@ public class ProductDto {
         this.content = product.getContent();
         this.price = product.getPrice();
         this.user = new userDto.Info(product.getUser());
-        this.fileName = product.getFileName();
-        this.filePath = product.getFilePath();
     }
 }
