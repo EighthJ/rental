@@ -64,7 +64,7 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/user/test").permitAll() // 테스트
+                .antMatchers("/api/reserve/**").permitAll() // 테스트
                 .antMatchers("/api/login").permitAll() // 로그인
                 .antMatchers("/api/user/create").permitAll() // 회원가입
                 .antMatchers("/api/product/**").permitAll() // 회원가입

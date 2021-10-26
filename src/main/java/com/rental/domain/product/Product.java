@@ -18,7 +18,7 @@ public class Product extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "product_id")
     private Long id;
 
     @Column
@@ -35,7 +35,7 @@ public class Product extends BaseTimeEntity {
 
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     private User user;
 
     //@Builder
