@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class reserveController {
 
-    private final reservationService reservationService;
+    /*private final reservationService reservationService;
 
     @PostMapping("/api/reserve/{productId}")
     public void doReserve(@AuthenticationPrincipal UserDetails currentUser,
@@ -22,4 +22,6 @@ public class reserveController {
                           @PathVariable Long productId) {
         reservationService.reserve(currentUser, requestDto, productId);
     }
+
+     */
 }

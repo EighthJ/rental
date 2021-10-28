@@ -2,7 +2,7 @@ package com.rental.domain.user;
 
 import com.rental.domain.BaseTimeEntity;
 import com.rental.domain.product.Product;
-import com.rental.entity.User.Role;
+import com.rental.domain.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,7 +44,7 @@ public class User extends BaseTimeEntity {
         this.role = (this.role == Role.BUYER) ? Role.SELLER : Role.BUYER;
     }
 
-    public void update(com.rental.entity.User.dto.userDto.update updateDto) {
+    public void update(com.rental.domain.user.dto.userDto.update updateDto) {
         this.name = updateDto.getName();
         this.address = updateDto.getAddress();
         this.nickname = updateDto.getNickname();

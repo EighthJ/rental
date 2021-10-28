@@ -2,7 +2,7 @@ package com.rental.dto;
 
 import com.rental.domain.product.Product;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rental.entity.User.dto.userDto;
+import com.rental.domain.user.dto.userDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +11,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ProductDto {
+
+    @JsonProperty("product_id")
+    private Long product_id;
     @JsonProperty("title")
     private String title;
     @JsonProperty("content")
@@ -21,18 +24,13 @@ public class ProductDto {
     private int charge;
     @JsonProperty("user")
     private userDto.Info user;
-    @JsonProperty("fileName")
-    private String fileName;
-    @JsonProperty("filePath")
-    private String filePath;
 
     public ProductDto(Product product){
-        this.title = product.getTitle();
+        this.product_id = product.getId();
         this.title = product.getTitle();
         this.content = product.getContent();
         this.price = product.getPrice();
+        this.charge = product.getCharge();
         this.user = new userDto.Info(product.getUser());
-        this.fileName = product.getFileName();
-        this.filePath = product.getFilePath();
     }
 }

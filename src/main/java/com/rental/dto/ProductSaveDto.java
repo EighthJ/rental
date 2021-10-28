@@ -11,8 +11,7 @@ public class ProductSaveDto {
     private String content;
     private int price;
     private int charge;
-    private String fileName;
-    private String filePath;
+
 
     public ProductSaveDto(){}
     public ProductSaveDto(Product product){
@@ -20,7 +19,5 @@ public class ProductSaveDto {
         this.content = product.getContent();
         this.price = product.getPrice();
         this.charge = product.getCharge();
-        this.fileName = product.getFileName();
-        this.filePath = product.getFilePath();
     }
 }

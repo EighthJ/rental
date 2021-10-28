@@ -1,6 +1,7 @@
 package com.rental.service;
 
 import com.rental.domain.product.Product;
+import com.rental.domain.user.Role;
 import com.rental.domain.user.User;
 import com.rental.dto.*;
 import com.rental.repository.ProductRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -21,24 +23,19 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private UserRepository userRepository;
+    private final ProductRepository productRepository;
+    private final UserRepository userRepository;
 
-    public void createProduct(ProductSaveDto saveDto, UserDetails currentUser, MultipartFile file) throws Exception{
+    public MyProductDto createProduct(ProductSaveDto saveDto, UserDetails currentUser) throws Exception{
 
         User user = userRepository.findByEmail(currentUser.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
 
-        String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\files";
-        UUID uuid = UUID.randomUUID();
-        String fileName = uuid + "_" + file.getOriginalFilename();
-        File saveFile = new File(filePath, "name");
-        file.transferTo(saveFile);
+        if (!(user.getRole() == Role.SELLER)) throw new ArithmeticException("게시 권한이 없습니다");
 
         Product uploadProduct = getPro(saveDto,user.getId());
         Product saveProduct = productRepository.save(uploadProduct);
+        return new MyProductDto(saveProduct);
     }
 
     private Product getPro(ProductSaveDto productSaveDto, Long id){
@@ -48,9 +45,7 @@ public class ProductService {
                 productSaveDto.getContent(),
                 productSaveDto.getPrice(),
                 productSaveDto.getCharge(),
-                user,
-                productSaveDto.getFileName(),
-                productSaveDto.getFilePath()
+                user
         );
     }
 
@@ -58,14 +53,26 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public void update(Long id, ProductUpdateRequestDto requestDto){
+    @Transactional
+    public void update(Long id, ProductUpdateRequestDto requestDto, UserDetails currentUser){
+        User user = userRepository.findByEmail(currentUser.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
+
         Product product = productRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당게시물이 없습니다. id" +id));
-        product.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getPrice(), requestDto.getCharge(), requestDto.getFileName(), requestDto.getFilePath());
-        productRepository.save(product);
+
+        if (!user.equals(product.getUser())) throw new ArithmeticException("해당게시물의 게시자가 아닙니다");
+        product.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getPrice(), requestDto.getCharge());
     }
 
-    public void deleteById(Long id){
+    //상품아이디로 삭제
+    public void deleteById(Long id, UserDetails currentUser){
+        User user = userRepository.findByEmail(currentUser.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
+
+        Product product = productRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당게시물이 없습니다. id" +id));
+        if (!user.equals(product.getUser())) throw new ArithmeticException("해당게시물의 게시자가 아닙니다");
         productRepository.deleteById(id);
+
     }
 
     public List<Product> findAll(){
@@ -77,15 +84,17 @@ public class ProductService {
     }
 
     //등록자
-    public List<ProductDto> userSearch(Long user_id){
-        User user = userRepository.findById(user_id).orElseThrow(()-> new IllegalArgumentException("해당게시물이 없습니다. id" +user_id));
+    public List<MyProductDto> userSearch(UserDetails currentUser){
+        User user = userRepository.findByEmail(currentUser.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
+
         List<Product> productList = productRepository.findAllByUser(user);
-        List<ProductDto> DtoList = new ArrayList<>();
+        List<MyProductDto> DtoList = new ArrayList<>();
 
         if(productList.isEmpty()) return DtoList;
 
         for(Product product : productList){
-            DtoList.add(new ProductDto(product));
+            DtoList.add(new MyProductDto(product));
         }
         return DtoList;
     }

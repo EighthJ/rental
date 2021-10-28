@@ -1,7 +1,7 @@
 package com.rental.controller;
 
 import com.rental.domain.user.User;
-import com.rental.entity.User.dto.userDto;
+import com.rental.domain.user.dto.userDto;
 import com.rental.jwt.JwtFIlter;
 import com.rental.jwt.TokenProvider;
 import com.rental.service.user.UserService;

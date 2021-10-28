@@ -1,4 +1,4 @@
-package com.rental.entity.User;
+package com.rental.domain.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
