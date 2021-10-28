@@ -39,8 +39,8 @@ public class ProductController {
     }
 
     @PutMapping("/product/update/{product_id}")
-    public void update(@PathVariable Long product_id, @RequestBody ProductUpdateRequestDto requestDto, @AuthenticationPrincipal UserDetails currentUser){
-        productService.update(product_id,requestDto, currentUser);
+    public MyProductDto update(@PathVariable Long product_id, @RequestBody ProductUpdateRequestDto requestDto, @AuthenticationPrincipal UserDetails currentUser){
+        return productService.update(product_id,requestDto, currentUser);
     }
 
     //품명조회/완료

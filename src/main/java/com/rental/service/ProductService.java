@@ -54,7 +54,7 @@ public class ProductService {
     }
 
     @Transactional
-    public void update(Long id, ProductUpdateRequestDto requestDto, UserDetails currentUser){
+    public MyProductDto update(Long id, ProductUpdateRequestDto requestDto, UserDetails currentUser){
         User user = userRepository.findByEmail(currentUser.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
 
@@ -62,6 +62,7 @@ public class ProductService {
 
         if (!user.equals(product.getUser())) throw new ArithmeticException("해당게시물의 게시자가 아닙니다");
         product.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getPrice(), requestDto.getCharge());
+        return new MyProductDto(product);
     }
 
     //상품아이디로 삭제
