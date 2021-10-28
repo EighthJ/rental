@@ -16,7 +16,6 @@ public class reserveDto {
     public static class request {
         String startDate;
         String finalDate;
-        Integer totalPrice;
     }
 
     @Getter
@@ -25,10 +24,22 @@ public class reserveDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class booked {
+
+        private String buyerName;
+        private String buyerEmail;
+        private String buyerAddress;
+
+        private String productTitle;
+        private Long productPrice;
         private String RealStartDate;
         private String RealFinalDate;
 
         public booked(reservation reservation) {
+            this.buyerName = reservation.getUser().getName();
+            this.buyerEmail = reservation.getUser().getEmail();
+            this.buyerAddress = reservation.getUser().getAddress();
+            this.productTitle = reservation.getProduct().getTitle();
+            this.productPrice = reservation.getTotalPrice();
             this.RealStartDate = AboutDate.getStringFromLocalDateTime(reservation.getRealStartDate());
             this.RealFinalDate = AboutDate.getStringFromLocalDateTime(reservation.getRealFinalDate());
         }
@@ -41,23 +52,36 @@ public class reserveDto {
     @NoArgsConstructor
     public static class Info {
 
-        // 예약한 상품 정보(dto)
+        private Long buyerId;
+        private String buyerNickname;
         private Long productId;
+        private String productTitle;
+        private String productContent;
+        private Integer charge;
 
-        // 판매자 정보
         private String sellerNickName;
-        private String sellerIntro;
 
-        // 예약 정보
         private String startDate;
         private String finalDate;
-        private Integer totalPrice;
+        private Long totalPrice;
         private String RealStartDate;
         private String RealFinalDate;
+        private String reserveStatus;
 
         public Info(reservation reservation) {
+            this.buyerId = reservation.getUser().getId();
+            this.buyerNickname = reservation.getUser().getNickname();
+            this.productId = reservation.getProduct().getId();
+            this.productTitle = reservation.getProduct().getTitle();
+            this.productContent = reservation.getProduct().getContent();
+            this.charge = reservation.getProduct().getCharge();
+            this.sellerNickName = reservation.getProduct().getUser().getNickname();
+            this.startDate = AboutDate.getStringFromLocalDateTime(reservation.getStartDate());
+            this.finalDate = AboutDate.getStringFromLocalDateTime(reservation.getFinalDate());
+            this.totalPrice = reservation.getTotalPrice();
             this.RealStartDate = AboutDate.getStringFromLocalDateTime(reservation.getRealStartDate());
             this.RealFinalDate = AboutDate.getStringFromLocalDateTime(reservation.getRealFinalDate());
+            this.reserveStatus = reservation.getReserveStatus().getKey();
         }
     }
 }

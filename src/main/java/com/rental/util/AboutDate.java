@@ -28,10 +28,10 @@ public class AboutDate {
     /**
      * 반납일 - 시작일
      */
-    public static long compareDay(String date1, String date2) {
+    public static Long compareDay(String date1, String date2) {
         LocalDate startDate = LocalDate.parse(date1, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate finalDate = LocalDate.parse(date2, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        long days = ChronoUnit.DAYS.between(startDate, finalDate);
+        Long days = ChronoUnit.DAYS.between(startDate, finalDate);
         return days;
     }
 }

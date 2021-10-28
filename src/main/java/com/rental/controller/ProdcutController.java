@@ -19,7 +19,7 @@ public class ProdcutController {
     private ProductService productService;
 
     //수정필요
-    @PostMapping("/product")
+    @PostMapping("/product/post")
     public void create(@RequestBody ProductSaveDto saveDto, @AuthenticationPrincipal UserDetails currentUser){
         productService.createProduct(saveDto, currentUser);
     }

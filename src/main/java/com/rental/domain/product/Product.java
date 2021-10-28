@@ -2,14 +2,15 @@ package com.rental.domain.product;
 
 import com.rental.domain.BaseTimeEntity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.rental.domain.reservation.reservation;
 import com.rental.domain.user.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "product")
-@ToString
 @Getter
 @Builder
 @AllArgsConstructor
@@ -37,6 +38,9 @@ public class Product extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
+
+    @OneToMany(mappedBy = "product")
+    private List<reservation> reservations = new ArrayList<>();
 
     //@Builder
     public Product(String title, String content, int price, int charge, User user){
