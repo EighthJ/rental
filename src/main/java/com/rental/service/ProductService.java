@@ -84,7 +84,7 @@ public class ProductService {
         return productRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당게시물이 없습니다. id" +id));
     }
 
-    //등록자
+    //등록자로 조회
     public List<MyProductDto> userSearch(UserDetails currentUser){
         User user = userRepository.findByEmail(currentUser.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
