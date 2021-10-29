@@ -28,7 +28,7 @@ public class ProductController {
 
     //전제조회
     @GetMapping("/product/all")
-    public List<Product> findAll(){
+    public List<ProductDto> findAll(){
         return productService.findAll();
     }
 

@@ -76,8 +76,16 @@ public class ProductService {
 
     }
 
-    public List<Product> findAll(){
-        return productRepository.findAll();
+    public List<ProductDto> findAll(){
+        List<Product> productList = productRepository.findAll();
+
+        List<ProductDto> DtoList = new ArrayList<>();
+        if(productList.isEmpty()) return DtoList;
+
+        for(Product product : productList){
+            DtoList.add(new ProductDto(product));
+        }
+        return DtoList;
     }
 
     public Product findById(Long id){
