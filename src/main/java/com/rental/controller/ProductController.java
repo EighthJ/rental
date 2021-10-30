@@ -25,13 +25,13 @@ public class ProductController {
         return productService.createProduct(saveDto, currentUser);
     }
 
-    //완료
+    //전체조회
     @GetMapping("/product/all")
     public List<ProductDto> findAll(){
         return productService.findAll();
     }
 
-    //상푸ID로 조회
+    //상품ID로 조회
     @GetMapping("/product/{product_id}")
     public ProductDto getProduct(@PathVariable Long product_id){
         return productService.findById(product_id);
