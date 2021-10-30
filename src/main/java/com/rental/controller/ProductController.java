@@ -19,7 +19,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    //수정필요
+    //등록
     @PostMapping("/product/post")
     public MyProductDto create(@RequestBody ProductSaveDto saveDto, @AuthenticationPrincipal UserDetails currentUser) throws Exception {
         return productService.createProduct(saveDto, currentUser);

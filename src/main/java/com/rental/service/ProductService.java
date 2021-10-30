@@ -26,7 +26,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
-    public MyProductDto createProduct(ProductSaveDto saveDto, UserDetails currentUser){
+    public MyProductDto createProduct(ProductSaveDto saveDto, UserDetails currentUser) throws Exception{
 
         User user = userRepository.findByEmail(currentUser.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
