@@ -46,9 +46,7 @@ public class ProductController {
     //품명조회
     @GetMapping("product/title")
     public List<ProductDto> gettitle(@RequestParam String title){
-        {
             return productService.titleSearch(title);
-        }
     }
 
     //내용으로 조회
