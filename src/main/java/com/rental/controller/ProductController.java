@@ -46,7 +46,7 @@ public class ProductController {
 
     //품명조회
     @GetMapping("/product/title")
-    public List<ProductDto> gettitle(@RequestParam(value = "title") String title){
+    public List<ProductDto> gettitle(@RequestParam String title){
         {
             return productService.titleSearch(title);
         }
@@ -54,7 +54,7 @@ public class ProductController {
 
     //내용으로 조회
     @GetMapping("/product/content")
-    public List<ProductDto> getcontent(@RequestParam(value = "content") String content){
+    public List<ProductDto> getcontent(@RequestParam String content){
         return productService.contentSearch(content);
     }
 
