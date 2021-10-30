@@ -19,19 +19,19 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    //수정필요
+    //등록
     @PostMapping("/product/post")
     public MyProductDto create(@RequestBody ProductSaveDto saveDto, @AuthenticationPrincipal UserDetails currentUser) throws Exception {
         return productService.createProduct(saveDto, currentUser);
     }
 
-    //완료
+    //전체조회
     @GetMapping("/product/all")
     public List<ProductDto> findAll(){
         return productService.findAll();
     }
 
-    //상푸ID로 조회
+    //상품ID로 조회
     @GetMapping("/product/{product_id}")
     public ProductDto getProduct(@PathVariable Long product_id){
         return new ProductDto(productService.findById(product_id));
