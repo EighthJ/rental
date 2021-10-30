@@ -49,10 +49,6 @@ public class ProductService {
         );
     }
 
-    public List<Product> findAllItems(){
-        return productRepository.findAll();
-    }
-
     @Transactional
     public MyProductDto update(Long id, ProductUpdateRequestDto requestDto, UserDetails currentUser){
         User user = userRepository.findByEmail(currentUser.getUsername())
@@ -89,8 +85,9 @@ public class ProductService {
         return DtoList;
     }
 
-    public Product findById(Long id){
-        return productRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당게시물이 없습니다. id" +id));
+    public ProductDto findById(Long id){
+        Product product = productRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당게시물이 없습니다. id" +id));
+        return new ProductDto(product);
     }
 
     //등록자로 조회

@@ -34,7 +34,7 @@ public class ProductController {
     //상푸ID로 조회
     @GetMapping("/product/{product_id}")
     public ProductDto getProduct(@PathVariable Long product_id){
-        return new ProductDto(productService.findById(product_id));
+        return productService.findById(product_id);
     }
 
     //수정
