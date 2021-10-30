@@ -21,7 +21,7 @@ public class ProductController {
 
     //수정필요
     @PostMapping("/product/post")
-    public MyProductDto create(@RequestBody ProductSaveDto saveDto, @AuthenticationPrincipal UserDetails currentUser){
+    public MyProductDto create(@RequestBody ProductSaveDto saveDto, @AuthenticationPrincipal UserDetails currentUser) throws Exception {
         return productService.createProduct(saveDto, currentUser);
     }
 
