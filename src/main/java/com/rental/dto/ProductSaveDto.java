@@ -12,7 +12,6 @@ public class ProductSaveDto {
     private int price;
     private int charge;
 
-
     public ProductSaveDto(){}
     public ProductSaveDto(Product product){
         this.title = product.getTitle();
