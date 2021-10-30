@@ -21,8 +21,8 @@ public class ProductController {
 
     //수정필요
     @PostMapping("/product/post")
-    public void create(@RequestBody ProductSaveDto saveDto, @AuthenticationPrincipal UserDetails currentUser){
-        productService.createProduct(saveDto, currentUser);
+    public MyProductDto create(@RequestBody ProductSaveDto saveDto, @AuthenticationPrincipal UserDetails currentUser){
+        return productService.createProduct(saveDto, currentUser);
     }
 
     //완료
@@ -39,8 +39,8 @@ public class ProductController {
 
     //수정
     @PutMapping("/product/update/{product_id}")
-    public void update(@PathVariable Long product_id, @RequestBody ProductUpdateRequestDto requestDto, @AuthenticationPrincipal UserDetails currentUser){
-        productService.update(product_id,requestDto,currentUser);
+    public MyProductDto update(@PathVariable Long product_id, @RequestBody ProductUpdateRequestDto requestDto, @AuthenticationPrincipal UserDetails currentUser){
+        return productService.update(product_id,requestDto,currentUser);
     }
 
     //품명조회
