@@ -23,8 +23,11 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
   datasource:
+
     url: jdbc:mysql://localhost:3306/rental?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true
-#    url: jdbc:mysql://127.0.0.1:3306/testdb?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8 미령님은 위에꺼 주석처리하고 이걸로 하시면 되영
+#    url: jdbc:mysql://127.0.0.1:3306/testdb?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+    #미령님은 위에꺼 주석처리하고 이걸로 하시면 되영
+
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 1234
@@ -41,3 +44,4 @@ jwt:
   header: Authorization
   secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
   token-validity-in-seconds: 86400
+

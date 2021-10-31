@@ -12,7 +12,7 @@ public class ProductUpdateRequestDto {
     private String content;
     private int price;
     private int charge;
-    //private Long fileId;
+
 
     @Builder
     public ProductUpdateRequestDto(String title, String content, int price, int charge){
@@ -20,6 +20,5 @@ public class ProductUpdateRequestDto {
         this.content = content;
         this.price = price;
         this.charge = charge;
-        //this.fileId = fileId;
     }
 }

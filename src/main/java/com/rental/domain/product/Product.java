@@ -49,7 +49,6 @@ public class Product extends BaseTimeEntity {
         this.price = price;
         this.charge = charge;
         this.user = user;
-
     }
 
     public void update(String title, String content, int price, int charge){
@@ -57,7 +56,6 @@ public class Product extends BaseTimeEntity {
         this.content = content;
         this.price = price;
         this.charge = charge;
-        //this.fileId = fileId;
     }
 
     public static Product from(String title, String content, int price, int charge, User user){

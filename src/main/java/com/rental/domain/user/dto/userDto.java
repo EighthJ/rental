@@ -1,4 +1,4 @@
-package com.rental.entity.User.dto;
+package com.rental.domain.user.dto;
 
 import com.rental.domain.user.User;
 import lombok.*;

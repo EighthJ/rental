@@ -1,8 +1,8 @@
 package com.rental.service.user;
 
-import com.rental.entity.User.Role;
+import com.rental.domain.user.Role;
 import com.rental.domain.user.User;
-import com.rental.entity.User.dto.userDto;
+import com.rental.domain.user.dto.userDto;
 import com.rental.exception.DuplicateMemberException;
 import com.rental.repository.user.UserRepository;
 import com.rental.util.SecurityUtil;
