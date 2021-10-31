@@ -73,7 +73,7 @@ public class UserController {
     /**
      * 내 정보 수정
      */
-    @PostMapping("api/user/update")
+    @PostMapping("/api/user/update")
     public userDto.Info update(@RequestBody userDto.update updateDto, @AuthenticationPrincipal UserDetails currentUser) {
         return userService.updateMyInfo(updateDto, currentUser);
     }
@@ -81,7 +81,7 @@ public class UserController {
     /**
      * 권한 변경 (판매자 <-> 구매자)
      */
-    @PostMapping("api/user/changeRole")
+    @PostMapping("/api/user/changeRole")
     public userDto.Info changeMyRole(@AuthenticationPrincipal UserDetails currentUser) {
         return userService.changeRole(currentUser);
     }

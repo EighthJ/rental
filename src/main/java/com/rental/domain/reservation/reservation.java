@@ -37,6 +37,11 @@ public class reservation extends BaseTimeEntity {
     private LocalDateTime finalDate; // 반납 희망일
     private LocalDateTime RealStartDate; // 실제 예약일
     private LocalDateTime RealFinalDate; // 실제 반납일
+    @Enumerated(EnumType.STRING)
     private reserveStatus reserveStatus; // 예약 상태
-    private Integer totalPrice; // 총 가격(가격 + 추가요금)
+    private Long totalPrice; // 총 가격(가격 + 추가요금)
+
+    public void changeReserveStatus() {
+        this.reserveStatus = (this.reserveStatus == reserveStatus.GENERAL) ? reserveStatus.RENTAL : reserveStatus.GENERAL;
+    }
 }
